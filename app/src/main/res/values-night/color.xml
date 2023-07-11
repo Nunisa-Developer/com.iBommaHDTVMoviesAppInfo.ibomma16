@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <color name="black">#0A0A0A</color>
+    <color name="white">#FFFFFF</color>
+
+    <color name="Button">#fff</color>
+    <color name="Button_Text">#000</color>
+    <color name="Background">#000</color>
+    <color name="alpha_a">#33f656a3</color>
+    <color name="blackk">#000000</color>
+
+    <color name="whitee">#ffffff</color>
+</resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item android:drawable="@drawable/iibomma16_iresource_if"></item>
+
+    <item
+
+        android:width="160dp"
+        android:height="130dp"
+        android:bottom="15dp"
+        android:drawable="@drawable/iibomma16_ikanada"
+        android:left="9dp"
+        android:top="9dp"></item>
+
+
+</layer-list>

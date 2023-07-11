@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/Background"
+    android:weightSum="2">
+
+
+
+
+    <FrameLayout
+        android:id="@+id/fl_adplaceholder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <ImageView
+            android:id="@+id/qreka"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/iibomma16_iqf"></ImageView>
+    </FrameLayout>
+
+    <androidx.cardview.widget.CardView
+        style="?attr/materialCardViewElevatedStyle"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:layout_margin="15dp"
+        android:backgroundTint="@color/whitee"
+        android:elevation="20dp"
+        app:cardCornerRadius="10dp"
+        >
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                >
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hi"
+                    android:id="@+id/text"
+                    android:textColor="@color/blackk"
+                    android:layout_margin="10dp"
+                    android:textSize="15dp"
+                    android:fontFamily="@font/poppins_semi_bold"
+                    android:textStyle="bold"
+
+                    />
+            </LinearLayout>
+        </ScrollView>
+    </androidx.cardview.widget.CardView>
+
+    <FrameLayout
+        android:id="@+id/fl_b"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/iibomma16_iqb3"
+        android:gravity="bottom"
+        android:visibility="visible" />
+</LinearLayout>

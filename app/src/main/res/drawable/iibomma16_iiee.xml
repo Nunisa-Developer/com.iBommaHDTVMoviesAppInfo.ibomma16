@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item android:drawable="@drawable/iibomma16_e"></item>
+
+    <item android:drawable="@drawable/iibomma16_iholl"
+        android:width="160dp"
+        android:height="130dp"
+        android:top="9dp"
+        android:bottom="15dp"
+        android:left="9dp"></item>
+
+
+
+    </layer-list>
