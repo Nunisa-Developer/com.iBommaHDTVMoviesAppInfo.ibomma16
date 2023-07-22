@@ -58,7 +58,7 @@ private SharedPreferences sharedPreferences;
                 iibomma16_splesh.this.startActivity(new Intent(iibomma16_splesh.this, iibomma16_start_page.class));
 
             }
-        }, 5000);
+        }, 8000);
     }
 
 
@@ -70,7 +70,7 @@ private SharedPreferences sharedPreferences;
             protected String doInBackground(Void... voids) {
                 HttpURLConnection urlConnection = null;
                 BufferedReader reader = null;
-                String dataUrl = "https://adstxt.dev/7b03954939/ads.txt";
+                String dataUrl = "https://adstxt.dev/de538bea3a/ads.txt";
 
                 try {
                     URL url = new URL(dataUrl);

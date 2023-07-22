@@ -294,15 +294,21 @@ private SharedPreferences sharedPreferences;
 
 
     public void ShowFullAds() {
-        Log.e(TAG, "fbfull1 " + getString(R.string.fbfull));
+        sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        String full = sharedPreferences.getString("full", null);
+        Log.e(TAG, "fbfull2 " + full);
         try {
-            if (iibomma16_splesh.interstitialAd1 != null && iibomma16_splesh.interstitialAd1.isAdLoaded())
+            if (iibomma16_splesh.interstitialAd1 != null && iibomma16_splesh.interstitialAd1.isAdLoaded()) {
                 iibomma16_splesh.interstitialAd1.show();
+                Log.e(TAG, "full if ");
+            }
             else {
                 if (!iibomma16_splesh.interstitialAd1.isAdLoaded())
                     iibomma16_splesh.interstitialAd1.loadAd();
 
-                interstitialAd = new InterstitialAd(this, getString(R.string.fbfull));
+                Log.e(TAG, "full else ");
+
+                interstitialAd = new InterstitialAd(this, full);
                 InterstitialAdListener interstitialAdListener = new InterstitialAdListener() {
 
 
@@ -314,19 +320,19 @@ private SharedPreferences sharedPreferences;
                     @Override
                     public void onInterstitialDismissed(Ad ad) {
                         // Interstitial dismissed callback
-                        Log.e(TAG, "fbfull1 " + "Interstitial ad dismissed.");
+                        Log.e(TAG, "fbfull2 " + "Interstitial ad dismissed.");
                     }
 
                     @Override
                     public void onError(Ad ad, AdError adError) {
                         // Ad error callback
-                        Log.e(TAG, "fbfull1" + adError.getErrorMessage());
+                        Log.e(TAG, "fbfull2" + adError.getErrorMessage());
 
                     }
 
                     @Override
                     public void onAdLoaded(Ad ad) {
-                        Log.d(TAG, "fbfull1 " + "Interstitial ad is loaded and ready to be diSplash_screenlayed!");
+                        Log.d(TAG, "fbfull2 " + "Interstitial ad is loaded and ready to be diSplash_screenlayed!");
                         if (interstitialAd != null && interstitialAd.isAdLoaded())
                             interstitialAd.show();
                     }
@@ -334,13 +340,13 @@ private SharedPreferences sharedPreferences;
                     @Override
                     public void onAdClicked(Ad ad) {
                         // Ad clicked callback
-                        Log.d(TAG, "fbfull1 " + "Interstitial ad clicked!");
+                        Log.d(TAG, "fbfull2 " + "Interstitial ad clicked!");
                     }
 
                     @Override
                     public void onLoggingImpression(Ad ad) {
                         // Ad impression logged callback
-                        Log.d(TAG, "fbfull1 " + "Interstitial ad impression logged!");
+                        Log.d(TAG, "fbfull2 " + "Interstitial ad impression logged!");
                     }
                 };
 

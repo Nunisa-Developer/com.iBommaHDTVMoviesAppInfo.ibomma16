@@ -73,6 +73,7 @@
                     android:layout_marginRight="10dp"
                     android:text="Yes Exit"
                     app:backgroundTint="@color/Button"
+                    android:textColor="@color/black"
                     app:tint="@color/Button_Text" />
 
                 <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
@@ -83,6 +84,7 @@
                     android:layout_marginRight="10dp"
                     android:text="Back"
                     app:backgroundTint="@color/Button"
+                    android:textColor="@color/black"
                     app:tint="@color/Button_Text"
 
                     />
