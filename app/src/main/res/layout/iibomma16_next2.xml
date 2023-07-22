@@ -15,7 +15,11 @@
         android:orientation="vertical"
         android:visibility="visible">
 
-
+        <ImageView
+            android:id="@+id/qreka"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/iibomma16_iqf"></ImageView>
     </FrameLayout>
 
 

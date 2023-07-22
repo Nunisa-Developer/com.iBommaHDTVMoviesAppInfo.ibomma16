@@ -3,6 +3,7 @@ package com.iBommaHDTVMoviesAppInfo.ibomma;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,6 +26,8 @@ import com.facebook.ads.MediaViewListener;
 import com.facebook.ads.NativeAd;
 import com.facebook.ads.NativeAdBase;
 import com.facebook.ads.NativeAdListener;
+import com.facebook.ads.NativeBannerAd;
+import com.facebook.ads.NativeBannerAdView;
 import com.google.android.material.appbar.MaterialToolbar;
 
 
@@ -36,7 +39,9 @@ public class iibomma16_Exit extends AppCompatActivity {
     private Button exitapp;
 
 
-    private com.facebook.ads.AdView bannerAdContainer;
+    NativeBannerAd nativeBannerAd;
+    FrameLayout nativeBannerContainer;
+private SharedPreferences sharedPreferences;
     LinearLayout adView1, L1, L2;
     FrameLayout nativeAdContainer;
 
@@ -59,19 +64,17 @@ public class iibomma16_Exit extends AppCompatActivity {
 
 
         loadfbNativeAd();
-        showfbbanner();
+        showfbNativeBanner();
         ShowFullAds();
 
 
         iibomma16_splesh.url_passing(iibomma16_Exit.this);
-        iibomma16_splesh.url_passing1(iibomma16_Exit.this);
 
         findViewById(R.id.fl_adplaceholder).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 iibomma16_splesh.url_passing(iibomma16_Exit.this);
-                iibomma16_splesh.url_passing1(iibomma16_Exit.this);
 
             }
         });
@@ -80,7 +83,6 @@ public class iibomma16_Exit extends AppCompatActivity {
             public void onClick(View v) {
 
                 iibomma16_splesh.url_passing(iibomma16_Exit.this);
-                iibomma16_splesh.url_passing1(iibomma16_Exit.this);
 
             }
         });
@@ -184,35 +186,37 @@ public class iibomma16_Exit extends AppCompatActivity {
     }
 
     public void loadfbNativeAd() {
+        sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        String nativeid = sharedPreferences.getString("nativeid", null);
 
-        Log.e(TAG, "fbnative5 " + getString(R.string.fbnative));
+        Log.e(TAG, "fbnative1 " + nativeid);
         nativeAdContainer = findViewById(R.id.fl_adplaceholder);
         LayoutInflater inflater = this.getLayoutInflater();
         adView1 = (LinearLayout) inflater.inflate(R.layout.iibomma16_ad_layout, nativeAdContainer, false);
         nativeAdContainer.addView(adView1);
-        nativeAd1 = new NativeAd(getApplicationContext(), getString(R.string.fbnative));
+        nativeAd1 = new NativeAd(getApplicationContext(), nativeid);
         NativeAdListener nativeAdListener = new NativeAdListener() {
             @Override
             public void onMediaDownloaded(Ad ad) {
-                Log.e("fbnative5==>", "onMediaDownloaded: ");
+                Log.e("fbnative1==>", "onMediaDownloaded: ");
 
             }
 
             @Override
             public void onError(Ad ad, AdError adError) {
                 //  nativeAdContainer.setVisibility(View.GONE);
-                Log.e("fbnative5==>", adError.getErrorMessage());
+                Log.e("fbnative1==>", adError.getErrorMessage());
 
             }
 
             @Override
             public void onAdLoaded(Ad ad) {
-                Log.e("fbnative5==>", "onAdLoaded: ");
+                Log.e("fbnative1==>", "onAdLoaded: ");
                 if (nativeAd1 == null || nativeAd1 != ad) {
 
                     return;
                 }
-                ImageView Qreka;
+                 ImageView Qreka;
                 Qreka = findViewById(R.id.qreka);
                 Qreka.setVisibility(View.GONE);
                 inflateAd(nativeAd1, adView1, getApplicationContext());
@@ -220,14 +224,14 @@ public class iibomma16_Exit extends AppCompatActivity {
 
             @Override
             public void onAdClicked(Ad ad) {
-                Log.e("fbnative5==>", "onAdClicked: ");
+                Log.e("fbnative1==>", "onAdClicked: ");
 
 
             }
 
             @Override
             public void onLoggingImpression(Ad ad) {
-                Log.e("fbnative5==>", "onLoggingImpression: ");
+                Log.e("fbnative1==>", "onLoggingImpression: ");
 
             }
         };
@@ -240,54 +244,67 @@ public class iibomma16_Exit extends AppCompatActivity {
 
     }
 
-    private void showfbbanner() {
-        Log.e(TAG, "fbban5 " + getString(R.string.fbbanner));
-        FrameLayout adViewContainer = findViewById(R.id.fl_b);
-        bannerAdContainer = new com.facebook.ads.AdView(this, getString(R.string.fbbanner), com.facebook.ads.AdSize.BANNER_HEIGHT_90);
-        adViewContainer.addView(bannerAdContainer);
+    public void showfbNativeBanner() {
+        sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        String Bannerid = sharedPreferences.getString("Bannerid", null);
+        View adView = NativeBannerAdView.render(this, iibomma16_splesh.nativeBannerAd, NativeBannerAdView.Type.HEIGHT_100);
+        nativeBannerContainer = (FrameLayout) findViewById(R.id.fl_b);
+        // Add the Native Banner Ad View to your ad container
+        nativeBannerContainer.addView(adView);
+
+        nativeBannerAd = new NativeBannerAd(this, Bannerid);
+        Log.e(TAG, "fbnativebanner1 " + Bannerid);
         NativeAdListener nativeAdListener = new NativeAdListener() {
             @Override
             public void onMediaDownloaded(Ad ad) {
+
             }
 
             @Override
             public void onError(Ad ad, AdError adError) {
-                Log.e("fbban5==>", adError.getErrorMessage());
+                Log.e(TAG, "fbnativebanner 1 " + adError.getErrorMessage());
 
             }
 
             @Override
             public void onAdLoaded(Ad ad) {
-                Log.e("fbban5==>", "onAdLoaded: ");
+                Log.e(TAG, "Native ad is loaded and ready to be displayed!");
+                View adView = NativeBannerAdView.render(getApplicationContext(), nativeBannerAd, NativeBannerAdView.Type.HEIGHT_100);
+                nativeBannerContainer.addView(adView);
             }
 
             @Override
             public void onAdClicked(Ad ad) {
-                Log.e("fbban5==>", "onAdClicked: ");
+
             }
 
             @Override
             public void onLoggingImpression(Ad ad) {
-                Log.e("fbban5==>", "onLoggingImpression: ");
+
             }
         };
-
-        bannerAdContainer.loadAd(
-                bannerAdContainer.buildLoadAdConfig()
+        nativeBannerAd.loadAd(
+                nativeBannerAd.buildLoadAdConfig()
                         .withAdListener(nativeAdListener)
                         .build());
     }
 
     public void ShowFullAds() {
-        Log.e(TAG, "fbfull5 " + getString(R.string.fbfull));
+        sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        String full = sharedPreferences.getString("full", null);
+        Log.e(TAG, "fbfull2 " + full);
         try {
-            if (iibomma16_splesh.interstitialAd1 != null && iibomma16_splesh.interstitialAd1.isAdLoaded())
+            if (iibomma16_splesh.interstitialAd1 != null && iibomma16_splesh.interstitialAd1.isAdLoaded()) {
                 iibomma16_splesh.interstitialAd1.show();
+                Log.e(TAG, "full if ");
+            }
             else {
                 if (!iibomma16_splesh.interstitialAd1.isAdLoaded())
                     iibomma16_splesh.interstitialAd1.loadAd();
 
-                interstitialAd = new InterstitialAd(this, getString(R.string.fbfull));
+                Log.e(TAG, "full else ");
+
+                interstitialAd = new InterstitialAd(this, full);
                 InterstitialAdListener interstitialAdListener = new InterstitialAdListener() {
 
 
@@ -299,19 +316,19 @@ public class iibomma16_Exit extends AppCompatActivity {
                     @Override
                     public void onInterstitialDismissed(Ad ad) {
                         // Interstitial dismissed callback
-                        Log.e(TAG, "fbfull5 " + "Interstitial ad dismissed.");
+                        Log.e(TAG, "fbfull2 " + "Interstitial ad dismissed.");
                     }
 
                     @Override
                     public void onError(Ad ad, AdError adError) {
                         // Ad error callback
-                        Log.e(TAG, "fbfull5" + adError.getErrorMessage());
+                        Log.e(TAG, "fbfull2" + adError.getErrorMessage());
 
                     }
 
                     @Override
                     public void onAdLoaded(Ad ad) {
-                        Log.d(TAG, "fbfull5 " + "Interstitial ad is loaded and ready to be diSplash_screenlayed!");
+                        Log.d(TAG, "fbfull2 " + "Interstitial ad is loaded and ready to be diSplash_screenlayed!");
                         if (interstitialAd != null && interstitialAd.isAdLoaded())
                             interstitialAd.show();
                     }
@@ -319,13 +336,13 @@ public class iibomma16_Exit extends AppCompatActivity {
                     @Override
                     public void onAdClicked(Ad ad) {
                         // Ad clicked callback
-                        Log.d(TAG, "fbfull5 " + "Interstitial ad clicked!");
+                        Log.d(TAG, "fbfull2 " + "Interstitial ad clicked!");
                     }
 
                     @Override
                     public void onLoggingImpression(Ad ad) {
                         // Ad impression logged callback
-                        Log.d(TAG, "fbfull5 " + "Interstitial ad impression logged!");
+                        Log.d(TAG, "fbfull2 " + "Interstitial ad impression logged!");
                     }
                 };
 
@@ -345,7 +362,6 @@ public class iibomma16_Exit extends AppCompatActivity {
 
         ShowFullAds();
         iibomma16_splesh.url_passing(iibomma16_Exit.this);
-        iibomma16_splesh.url_passing1(iibomma16_Exit.this);
 
 
     }

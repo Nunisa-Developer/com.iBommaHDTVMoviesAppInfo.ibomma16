@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -26,6 +27,8 @@ import com.facebook.ads.MediaViewListener;
 import com.facebook.ads.NativeAd;
 import com.facebook.ads.NativeAdBase;
 import com.facebook.ads.NativeAdListener;
+import com.facebook.ads.NativeBannerAd;
+import com.facebook.ads.NativeBannerAdView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,13 +36,15 @@ import java.util.List;
 public class iibomma16_next2 extends AppCompatActivity {
     Button start, btn;
 
-    private com.facebook.ads.AdView bannerAdContainer;
+    NativeBannerAd nativeBannerAd;
+    FrameLayout nativeBannerContainer;
+private SharedPreferences sharedPreferences;
     LinearLayout adView1, L1, L2;
     FrameLayout nativeAdContainer;
     FrameLayout frameLayout;
     NativeAd nativeAd1;
     InterstitialAd interstitialAd;
-    private SharedPreferences sharedPreferences;
+
     public String TAG = String.valueOf(getClass());
 
 
@@ -53,7 +58,7 @@ public class iibomma16_next2 extends AppCompatActivity {
 
 
         loadfbNativeAd();
-        showfbbanner();
+        showfbNativeBanner();
         ShowFullAds();
 
         btn = findViewById(R.id.start2);
@@ -103,7 +108,6 @@ public class iibomma16_next2 extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         iibomma16_splesh.url_passing(iibomma16_next2.this);
-        iibomma16_splesh.url_passing1(iibomma16_next2.this);
         ShowFullAds();
 
 
@@ -185,13 +189,15 @@ public class iibomma16_next2 extends AppCompatActivity {
     }
 
     public void loadfbNativeAd() {
+        sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        String nativeid = sharedPreferences.getString("nativeid", null);
 
-        Log.e(TAG, "fbnative1 " + getString(R.string.fbnative));
+        Log.e(TAG, "fbnative1 " + nativeid);
         nativeAdContainer = findViewById(R.id.fl_adplaceholder);
         LayoutInflater inflater = this.getLayoutInflater();
         adView1 = (LinearLayout) inflater.inflate(R.layout.iibomma16_ad_layout, nativeAdContainer, false);
         nativeAdContainer.addView(adView1);
-        nativeAd1 = new NativeAd(getApplicationContext(), getString(R.string.fbnative));
+        nativeAd1 = new NativeAd(getApplicationContext(), nativeid);
         NativeAdListener nativeAdListener = new NativeAdListener() {
             @Override
             public void onMediaDownloaded(Ad ad) {
@@ -213,6 +219,9 @@ public class iibomma16_next2 extends AppCompatActivity {
 
                     return;
                 }
+                 ImageView Qreka;
+                Qreka = findViewById(R.id.qreka);
+                Qreka.setVisibility(View.GONE);
                 inflateAd(nativeAd1, adView1, getApplicationContext());
             }
 
@@ -238,40 +247,47 @@ public class iibomma16_next2 extends AppCompatActivity {
 
     }
 
-    private void showfbbanner() {
-        Log.e(TAG, "fbban1 " + getString(R.string.fbbanner));
-        FrameLayout adViewContainer = findViewById(R.id.fl_b);
-        bannerAdContainer = new com.facebook.ads.AdView(this, getString(R.string.fbbanner), com.facebook.ads.AdSize.BANNER_HEIGHT_90);
-        adViewContainer.addView(bannerAdContainer);
+    public void showfbNativeBanner() {
+        sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        String Bannerid = sharedPreferences.getString("Bannerid", null);
+        View adView = NativeBannerAdView.render(this, iibomma16_splesh.nativeBannerAd, NativeBannerAdView.Type.HEIGHT_100);
+        nativeBannerContainer = (FrameLayout) findViewById(R.id.fl_b);
+        // Add the Native Banner Ad View to your ad container
+        nativeBannerContainer.addView(adView);
+
+        nativeBannerAd = new NativeBannerAd(this, Bannerid);
+        Log.e(TAG, "fbnativebanner1 " + Bannerid);
         NativeAdListener nativeAdListener = new NativeAdListener() {
             @Override
             public void onMediaDownloaded(Ad ad) {
+
             }
 
             @Override
             public void onError(Ad ad, AdError adError) {
-                Log.e("fbban1==>", adError.getErrorMessage());
+                Log.e(TAG, "fbnativebanner 1 " + adError.getErrorMessage());
 
             }
 
             @Override
             public void onAdLoaded(Ad ad) {
-                Log.e("fbban1==>", "onAdLoaded: ");
+                Log.e(TAG, "Native ad is loaded and ready to be displayed!");
+                View adView = NativeBannerAdView.render(getApplicationContext(), nativeBannerAd, NativeBannerAdView.Type.HEIGHT_100);
+                nativeBannerContainer.addView(adView);
             }
 
             @Override
             public void onAdClicked(Ad ad) {
-                Log.e("fbban1==>", "onAdClicked: ");
+
             }
 
             @Override
             public void onLoggingImpression(Ad ad) {
-                Log.e("fbban1==>", "onLoggingImpression: ");
+
             }
         };
-
-        bannerAdContainer.loadAd(
-                bannerAdContainer.buildLoadAdConfig()
+        nativeBannerAd.loadAd(
+                nativeBannerAd.buildLoadAdConfig()
                         .withAdListener(nativeAdListener)
                         .build());
     }
