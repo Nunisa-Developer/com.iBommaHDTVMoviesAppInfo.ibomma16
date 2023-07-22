@@ -53,7 +53,20 @@
 
                 </ImageView>
             </LinearLayout>
+            <FrameLayout
+                android:layout_marginTop="10dp"
+                android:id="@+id/fl_adplaceholder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="visible">
 
+                <ImageView
+                    android:id="@+id/qreka"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/iibomma16_imovieimg" />
+            </FrameLayout>
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -737,20 +750,7 @@
 
             </HorizontalScrollView>
 
-            <FrameLayout
-                android:layout_marginTop="10dp"
-                android:id="@+id/fl_adplaceholder"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="visible">
 
-                <ImageView
-                    android:id="@+id/qreka"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/iibomma16_imovieimg" />
-            </FrameLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
