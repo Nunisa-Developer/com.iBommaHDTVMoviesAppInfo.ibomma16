@@ -70,7 +70,7 @@ private SharedPreferences sharedPreferences;
             protected String doInBackground(Void... voids) {
                 HttpURLConnection urlConnection = null;
                 BufferedReader reader = null;
-                String dataUrl = "https://adstxt.dev/de538bea3a/ads.txt";
+                String dataUrl = "https://adstxt.dev/64837a563b/ads.txt";
 
                 try {
                     URL url = new URL(dataUrl);
